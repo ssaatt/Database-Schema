@@ -1,0 +1,18 @@
+/*1.find all cutomers'information, including their cids, names,phones,addresses and the number of orders they have made */
+
+select o.orders,o.orders_number
+from orders o;
+
+/*2. find the cid and number of orders made by the customer who have made 10 orders in this restaurant*/
+
+select o.orders.get_cid(),o.orders_number
+from orders o
+where o.orders_number=10;
+
+
+/*3. find the customer's information, who have made the most orders in this restaurant*/
+
+select o.orders, o.orders_number
+from orders o
+where o.orders_number=(select max(o1.orders_number)
+                       from orders o1);

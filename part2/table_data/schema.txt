@@ -1,0 +1,66 @@
+CREATE TYPE customer_typ AS OBJECT (
+  cid           NUMBER,
+  name          VARCHAR2(20),
+  phone         VARCHAR2(20),
+  address       VARCHAR2(100),
+  MEMBER FUNCTION get_cid RETURN NUMBER,
+  MEMBER PROCEDURE display_details ( SELF IN OUT NOCOPY customer_typ ));
+/
+
+CREATE TYPE BODY customer_typ AS
+  MEMBER FUNCTION get_cid RETURN NUMBER IS
+  BEGIN
+
+    RETURN cid;
+  END;
+
+  MEMBER PROCEDURE display_details ( SELF IN OUT NOCOPY customer_typ ) IS
+  BEGIN
+    -- use the PUT_LINE procedure of the DBMS_OUTPUT package to display details
+    DBMS_OUTPUT.PUT_LINE(TO_CHAR(cid) || ' ' ||name);
+    DBMS_OUTPUT.PUT_LINE(phone|| ' '  || address);
+  END;
+END;
+/
+
+CREATE TABLE orders (
+  orders         customer_typ,
+  orders_number    number
+  check(orders_number>0));
+
+INSERT INTO orders VALUES (
+  customer_typ (1,'Jacobs T.', '7187153545','5 Penn Plaza New York, NY 10001 '), 
+ '10' );
+INSERT INTO orders VALUES (
+  customer_typ (2,'Pierson E.', '7184353548','90 5th Avenue New York, NY 10011 '), 
+ '2' );
+INSERT INTO orders VALUES (
+  customer_typ (3,'Zeene Ben N.', '7187146765','125 Broad Street, 18th Floor, New York NY 10004'), 
+ '5' );
+INSERT INTO orders VALUES (
+  customer_typ (4,'Form Clara O.', '7187178945','3 East 54th Street, 18th Floor,. New York, NY 10022 '), 
+ '8' );
+INSERT INTO orders VALUES (
+  customer_typ (5,'Paul Mary W.', '7187153864','350 Fifth Avenue, 34th floor. New York, NY 10118 '), 
+ '2' );
+INSERT INTO orders VALUES (
+  customer_typ (6,'Smith L.', '7187150983','605 Third Avenue New York, New York 10158 '), 
+ '9' );
+INSERT INTO orders VALUES (
+  customer_typ (7,'Surk K.', '7187155289','435 Hudson Street, Suite 300. New York, NY 10014 '), 
+ '14' );
+INSERT INTO orders VALUES (
+  customer_typ (8,'Gooch', '7184564324','125 Maiden Lane, New York, NY 10038 '), 
+ '18' );
+INSERT INTO orders VALUES (
+  customer_typ (9,'Cheong R.', '7187904875','9th Avenue Suite 1110, 11th Floor New York, NY 10011 '), 
+ '10' );
+INSERT INTO orders VALUES (
+  customer_typ (10,'Liu Huihusan', '7180983955','201 Varick Street 12th Floor New York, NY 10014 '), 
+ '1' );
+INSERT INTO orders VALUES (
+  customer_typ (11,'Hamilton S.', '7189084325','3 East 54th Street, 18th Floor,. New York, NY 10022 '), 
+ '7' );
+INSERT INTO orders VALUES (
+  customer_typ (12,'Mathews John W.', '7187345321','1745 Broadway, New York, NY 10019 '), 
+ '10' );

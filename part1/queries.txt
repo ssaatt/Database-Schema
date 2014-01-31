@@ -1,0 +1,27 @@
+/*1. find the cid and name of the customers who reserve table 3, 
+also find all comments he had written.*/
+
+select c.cid, c.name, w.text
+from customer c, reservation_make r, tables t, is_at i, write_comments w
+where t.tid=3 and t.tid=i.tid and i.oid=r.oid and r.cid=c.cid and c.cid=w.cid;
+
+/*2.find the cid and name of the customers who choose the dish"Lake Tung Ting 
+Shrimp", also find out the delivery time of this dish.P*/
+
+select c.cid, c.name,d.dtime
+from customer c, menu m, choose ch,generate g, delivery_to d
+where m.dname='Lake Tung Ting Shrimp' and m.dishID=ch.dishID and ch.cid=c.cid 
+and g.cid=ch.cid and g.dishID=ch.dishID and g.cid=d.cid;
+
+/*3.find the cid and name of the customer who make the most expensive delivery
+order, also print out the total price of that order.*/
+
+select c.cid, c.name, d.total_price
+from customer c, delivery_to d
+where d.total_price=(select MAX(d1.total_price)
+                     from delivery_to d1)
+      and d.cid=c.cid;
+
+set pagesize 1000;
+set linesize 150;
+alter session set nls_date_format='yyyy-mm-dd hh24:mi:ss';
